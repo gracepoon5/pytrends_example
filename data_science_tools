@@ -1,0 +1,24 @@
+# Step 1 (at ternimal) 
+pip install pytrends
+
+# Step 2
+import pandas as pd
+import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 18})
+plt.style.use('fivethirtyeight')
+
+# Step 3 Connect to Google Treand
+from pytrends.request import TrendReq
+pytrends = TrendReq(hl='en-US', tz=360)
+dates = 'all'
+
+# Step 4 Build Payload - build a list of keywords you want to search in Google Trends
+kw_list=['scikit', 'NumPy','Python Pandas','SciPy']
+pytrends.build_payload(kw_list=kw_list, timeframe=dates)
+
+# Step 5 Returns pandas.Dataframe
+#returns historical, indexed data for when the keyword was searched most as shown on Google Trends' Interest Over Time section. 
+df = pytrends.interest_over_time()
+
+# Step 6 plot the dataframe using matplotlib
+df.plot(y=kw_list, kind='line',figsize=(17,6), lw=2, title="Google Search Trends of Python Data Science Tools in US");
